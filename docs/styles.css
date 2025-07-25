@@ -1,0 +1,258 @@
+/* --- VARIABLES DE ESTILO --- */
+:root {
+    --color-fondo: #f0f2f5;
+    --color-header: #ffffff;
+    --color-texto-principal: #1c1e21;
+    --color-texto-secundario: #606770;
+    --color-borde: #dcdfe3;
+    --color-sombra: rgba(0, 0, 0, 0.1);
+    
+    /* APROBADO -> Tono Lavanda/Violeta */
+    --color-aprobado: #b1a2f6;
+    --color-borde-aprobado: #b1a2f6;
+    --color-texto-aprobado: #ffffff;
+
+    /* DISPONIBLE -> Tono Salmón/Rosa */
+    --color-disponible: #f8828e;
+    --color-borde-disponible: #f8828e;
+    --color-texto-disponible: #ffffff;
+    
+/* BLOQUEADO -> Se ve oscuro y deshabilitado */
+    --color-bloqueado: #3a3a3c;
+    --color-borde-bloqueado: #4a4a4c;
+    --color-texto-bloqueado: #8e8e93;
+
+    --fuente-principal: 'Montserrat', sans-serif;
+}
+
+/* --- ESTILOS GENERALES --- */
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    margin: 0;
+    line-height: 1.6;
+}
+
+header, footer {
+    background-color: var(--color-header);
+    text-align: center;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px var(--color-sombra);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--color-texto-principal);
+}
+
+.stats p {
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+    color: var(--color-texto-secundario);
+}
+
+/* --- CONTENEDOR PRINCIPAL DE LA MALLA --- */
+main#malla-container {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que los semestres se bajen */
+    overflow-x: auto; /* Permite scroll horizontal */
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+}
+
+.semestre-container {
+    background-color: var(--color-header);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px var(--color-sombra);
+    min-width: 280px; /* Ancho mínimo para cada semestre */
+    flex-shrink: 0; /* Evita que las columnas se encojan */
+}
+
+.semestre-header {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-borde);
+    margin-bottom: 1rem;
+}
+
+/* --- ESTILOS DE CADA MATERIA ("RAMO") --- */
+.ramo {
+    /* En .ramo */
+transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid var(--color-borde-disponible);
+    border-radius: 8px;
+    background-color: var(--color-disponible);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-texto-disponible);
+}
+
+.ramo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px var(--color-sombra);
+}
+
+.ramo-nombre {
+    font-size: 0.9rem;
+}
+
+.ramo-info {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--color-texto-secundario);
+    margin-top: 4px;
+}
+
+
+/* --- ESTADOS DE LAS MATERIAS --- */
+.ramo.aprobado {
+    background-color: var(--color-aprobado);
+    border-color: var(--color-borde-aprobado);
+    color: var(--color-texto-aprobado);
+}
+
+.ramo.aprobado .ramo-info {
+    color: var(--color-texto-aprobado);
+}
+
+.ramo.bloqueado {
+    background-color: var(--color-bloqueado);
+    border-color: var(--color-borde-bloqueado);
+    color: var(--color-texto-bloqueado);
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.ramo.bloqueado:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.ramo.bloqueado .ramo-info {
+    color: var(--color-texto-bloqueado);
+}
+
+/* --- BOTÓN DE REINICIO --- */
+#reset-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+#reset-button:hover {
+    background-color: #d63c3e;
+}
+
+footer p {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--color-texto-secundario);
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake-animation {
+  animation: shake 0.5s;
+}
+/* --- ESTILOS PARA RESALTAR CONEXIONES (Añadir al final) --- */
+
+/* Estilo para resaltar una materia que es prerrequisito (lo que necesitas) */
+.ramo.prereq-highlight {
+  outline: 2px solid #007bff; /* Un borde azul llamativo */
+  outline-offset: 2px;
+  transition: outline 0.2s ease;
+}
+
+/* Estilo para resaltar una materia que es habilitada por la actual (lo que desbloqueas) */
+.ramo.succesor-highlight {
+    outline: 2px solid #28a745; /* Un borde verde llamativo */
+    outline-offset: 2px;
+    transition: outline 0.2s ease;
+}
+/* --- ESTILOS PARA LA LEYENDA DE COLORES --- */
+.leyenda-colores {
+    display: flex;
+    justify-content: center; /* Centra los items */
+    align-items: center;
+    gap: 20px; /* Espacio entre cada item de la leyenda */
+    margin-bottom: 1.5rem; /* Espacio hasta el botón de reinicio */
+    flex-wrap: wrap; /* Permite que se ajuste en pantallas chicas */
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el cuadradito de color y el texto */
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+}
+
+.color-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px; /* Bordes redondeados */
+    border: 1px solid var(--color-borde);
+}
+
+/* Usamos las mismas variables de color que ya tenías */
+.color-box.aprobado {
+    background-color: var(--color-aprobado);
+}
+.color-box.disponible {
+    background-color: var(--color-disponible);
+}
+.color-box.bloqueado {
+    background-color: var(--color-bloqueado);
+}
+/* --- ESTILOS PARA LA BARRA DE PROGRESO DE LA CARRERA --- */
+.progress-bar-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 0.5rem auto 0;
+    background-color: var(--color-borde);
+    border-radius: 20px;
+    overflow: hidden; /* Clave para que la barra interna no se salga */
+}
+
+#carrera-progress-bar {
+    width: 0%; /* La barra inicia vacía */
+    height: 18px;
+    background-color: var(--color-aprobado); /* Usa el color de las materias aprobadas */
+    border-radius: 20px;
+    transition: width 0.5s ease-in-out; /* Animación suave */
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    line-height: 18px; /* Centra el texto verticalmente */
+}
+/* --- ESTILO PARA EL TÍTULO INTERMEDIO --- */
+.titulo-intermedio {
+    background-color: #007bff; /* Un color llamativo para destacarlo */
+    color: white;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    border: 1px solid #0056b3;
+}
